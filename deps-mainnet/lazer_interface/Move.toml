@@ -1,0 +1,18 @@
+[package]
+name = "pyth_lazer"
+edition = "2024.beta"
+# ABI stub for Pyth Lazer TYPES (publish with --skip-dependency-verification; consumer links the real pkg).
+# Verification runs in the PTB, so the oracle consumes types only and NEVER calls the verifier fn — meaning
+# future Pyth verifier upgrades need NO oracle republish. But the update_v2/feed types were introduced in the
+# v2 upgrade, so published-at must still point at a version that CONTAINS those modules (v2). That differs
+# from the type-origin `pyth_lazer` address below (v1 original id, which all the package's types share).
+#   MAINNET: published-at 0xefbf…ee10 (v2, has update_v2/feed) · type-origin 0x7b50…f580 (v1 original)
+#   TESTNET: Lazer is STILL v1 (no update_v2 module) at 0xf5bd…8c21 — a testnet build will FAIL to link
+#            until Pyth upgrades it; point published-at at that v2 id (or a self-published v2).
+published-at = "0xefbfd064480777699fd9c557a5804d72ace7bc82661fdc8d1f1a44ea6d92ee10"
+
+[dependencies]
+# sui + std only (no Wormhole).
+
+[addresses]
+pyth_lazer = "0x7b502c8a7bcb3915892347f11086745570e759fe9708d03c03accf4c90bbf580"

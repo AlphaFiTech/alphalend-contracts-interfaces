@@ -15,6 +15,7 @@ module alphafi_oracle::oracle {
     use alphafi_stdlib::math::{Self,Number};
     use sui::math as sui_math;
     use sui::dynamic_field;
+    use pyth_lazer::update_v2::Update as LazerUpdate;
    
 
     #[error]
@@ -140,6 +141,14 @@ module alphafi_oracle::oracle {
     public fun update_price_from_pyth(
         self: &mut Oracle,
         price_info_object: &PriceInfoObject,
+        clock: &Clock,
+    ) {
+       abort 0
+    }
+
+    public fun ingest_lazer_update(
+        self: &mut Oracle,
+        update: LazerUpdate,
         clock: &Clock,
     ) {
        abort 0

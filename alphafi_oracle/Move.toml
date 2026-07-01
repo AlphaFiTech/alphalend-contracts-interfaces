@@ -33,6 +33,10 @@ rev = "sui-contract-mainnet"
 [dependencies.alphafi_stdlib]
 local = "../alphafi_stdlib"
 
+# Pyth Lazer ABI stub — provides the `pyth_lazer` named address (real pkg linked on-chain via published-at).
+[dependencies.pyth_lazer]
+local = "../deps-mainnet/lazer_interface"
+
 
 #[dependencies]
 #alphafi_stdlib = { local = "../alphafi_stdlib" }
