@@ -137,6 +137,10 @@ module alphafi_oracle::oracle {
         abort 0
     }
 
+    public fun get_all_supported_price_lazer_identifiers(_self: &Oracle): vector<u32> {
+        abort 0
+    }
+
 
     public fun update_price_from_pyth(
         self: &mut Oracle,

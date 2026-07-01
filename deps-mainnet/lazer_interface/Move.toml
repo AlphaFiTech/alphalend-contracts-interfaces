@@ -9,7 +9,11 @@ edition = "2024.beta"
 #   MAINNET: published-at 0xefbf…ee10 (v2, has update_v2/feed) · type-origin 0x7b50…f580 (v1 original)
 #   TESTNET: Lazer is STILL v1 (no update_v2 module) at 0xf5bd…8c21 — a testnet build will FAIL to link
 #            until Pyth upgrades it; point published-at at that v2 id (or a self-published v2).
+# MAINNET (active):
 published-at = "0xefbfd064480777699fd9c557a5804d72ace7bc82661fdc8d1f1a44ea6d92ee10"
+# TESTNET (uncomment + set a self-published v2 id when republishing on testnet; Pyth's testnet Lazer
+# 0xf5bd…8c21 is still v1 and lacks update_v2):
+# published-at = "0x0000000000000000000000000000000000000000000000000000000000000000"
 
 [dependencies]
 # sui + std only (no Wormhole).
