@@ -30,6 +30,7 @@ module pyth_lazer::i16 {
 module pyth_lazer::feed {
     use pyth_lazer::i64::I64;
     use pyth_lazer::i16::I16;
+    // NEVER add `store`: by-value consumption inside the verifying PTB is the security model.
     public struct Feed has copy, drop {}
     public fun feed_id(_feed: &Feed): u32 { abort 0 }
     public fun price(_feed: &Feed): Option<Option<I64>> { abort 0 }
@@ -42,6 +43,7 @@ module pyth_lazer::feed {
 
 module pyth_lazer::update_v2 {
     use pyth_lazer::feed::Feed;
+    // NEVER add `store`: by-value consumption inside the verifying PTB is the security model.
     public struct Update has copy, drop {}
     public fun timestamp(_update: &Update): u64 { abort 0 }
     public fun feeds(_update: &Update): vector<Feed> { abort 0 }

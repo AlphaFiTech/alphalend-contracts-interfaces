@@ -45,8 +45,10 @@ module alphafi_oracle::oracle {
         last_updated: u64
     }
 
-    // Mirrors alphafi_oracle::oracle::LazerPriceUpdationEvent. conf is the real spot confidence band
-    // (price units), unlike PythPriceUpdationEvent.conf which is a vestigial constant 0.
+    // Mirrors the implementation event in the alphalend-contracts repo (alphafi_oracle/sources/oracle.move)
+    // — that repo is the source of truth; keep fields byte-identical to it. conf is the real spot confidence
+    // band (price units), unlike PythPriceUpdationEvent.conf which is a vestigial constant 0 — indexers must
+    // branch on event TYPE, not the shared field name.
     public struct LazerPriceUpdationEvent has copy, drop {
         coin_type: TypeName,
         feed_id: u32,
