@@ -58,6 +58,14 @@ module alphafi_oracle::oracle {
         last_updated: u64,
     }
 
+    public struct LazerPriceSkippedEvent has copy, drop {
+        coin_type: TypeName,
+        feed_id: u32,
+        reason: u8,
+        price: Number,
+        ema_price: Number,
+    }
+
     public struct AdminCap has store, key {
         id: UID
     }

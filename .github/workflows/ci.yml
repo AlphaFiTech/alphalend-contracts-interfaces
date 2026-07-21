@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+env:
+  SUI_VERSION: ${{ vars.SUI_VERSION || 'mainnet' }}
+
+jobs:
+  install-sui:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install suiup
+        run: curl -sSfL https://raw.githubusercontent.com/MystenLabs/suiup/main/install.sh | sh
+      - name: Install Sui CLI
+        run: ~/.local/bin/suiup install sui@${SUI_VERSION} --yes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload Sui CLI
+        uses: actions/upload-artifact@v4
+        with:
+          name: sui-cli-${{ env.SUI_VERSION }}
+          path: ~/.local/bin/sui
+
+  build:
+    runs-on: ubuntu-latest
+    needs: install-sui
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: sui-cli-${{ env.SUI_VERSION }}
+          path: .sui/bin
+      - run: chmod +x .sui/bin/sui
+      - run: .sui/bin/sui move build --build-env mainnet --path alphafi_stdlib
+      - run: .sui/bin/sui move build --build-env mainnet --path alphafi_oracle
+      - run: .sui/bin/sui move build --build-env mainnet --path alpha_lending
+
+  lint:
+    runs-on: ubuntu-latest
+    needs: install-sui
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: sui-cli-${{ env.SUI_VERSION }}
+          path: .sui/bin
+      - run: chmod +x .sui/bin/sui
+      - run: .sui/bin/sui move build --lint --build-env mainnet --path alphafi_stdlib
+      - run: .sui/bin/sui move build --lint --build-env mainnet --path alphafi_oracle
+      - run: .sui/bin/sui move build --lint --build-env mainnet --path alpha_lending
+
+  test:
+    runs-on: ubuntu-latest
+    needs: install-sui
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: sui-cli-${{ env.SUI_VERSION }}
+          path: .sui/bin
+      - run: chmod +x .sui/bin/sui
+      - run: .sui/bin/sui move test --build-env mainnet --path alphafi_stdlib
+      - run: .sui/bin/sui move test --build-env mainnet --path alphafi_oracle
+      - run: .sui/bin/sui move test --build-env mainnet --path alpha_lending -i 50000000000
