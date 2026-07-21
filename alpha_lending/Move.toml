@@ -11,10 +11,7 @@ alphafi_oracle = { local = "../alphafi_oracle" }
 BluefinSpot = { git = "https://github.com/fireflyprotocol/bluefin-spot-contract-interface.git", rev = "main"}
 CetusClmm = { git = "https://github.com/CetusProtocol/cetus-clmm-interface.git", subdir = "sui/cetus_clmm", rev = "main" }
 IntegerMate = { git = "https://github.com/CetusProtocol/integer-mate.git", rev = "main", override = true }
-MoveStdlib = { git = "https://github.com/MystenLabs/sui.git", rev = "664b05b3b047c5bb03979d093660176176ea6175", subdir = "crates/sui-framework/packages/move-stdlib", override = true }
-Sui = { git = "https://github.com/MystenLabs/sui.git", rev = "664b05b3b047c5bb03979d093660176176ea6175", subdir = "crates/sui-framework/packages/sui-framework", override = true }
-Bridge = { git = "https://github.com/MystenLabs/sui.git", rev = "664b05b3b047c5bb03979d093660176176ea6175", subdir = "crates/sui-framework/packages/bridge", override = true }
-SuiSystem = { git = "https://github.com/MystenLabs/sui.git", rev = "664b05b3b047c5bb03979d093660176176ea6175", subdir = "crates/sui-framework/packages/sui-system", override = true }
+sui_system = { git = "https://github.com/MystenLabs/sui.git", rev = "mainnet", subdir = "crates/sui-framework/packages/sui-system", override = true }
 # MoveStdlib = { git = "https://github.com/MystenLabs/sui.git", rev = "mainnet-v1.49.2", subdir = "crates/sui-framework/packages/move-stdlib", override=true}
 # Sui = { git = "https://github.com/MystenLabs/sui.git", rev = "mainnet-v1.49.2", subdir = "crates/sui-framework/packages/sui-framework", override=true }
 # Bridge = { git = "https://github.com/MystenLabs/sui.git", rev = "mainnet-v1.49.2", subdir = "crates/sui-framework/packages/bridge", override=true}
