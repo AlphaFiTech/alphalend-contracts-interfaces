@@ -15,6 +15,7 @@ module alphafi_oracle::oracle {
     use alphafi_stdlib::math::{Self,Number};
     use sui::math as sui_math;
     use sui::dynamic_field;
+    use pyth_lazer::update_v2::Update as LazerUpdate;
    
 
     #[error]
@@ -42,6 +43,27 @@ module alphafi_oracle::oracle {
         ema_price: Number,
         conf: Number,
         last_updated: u64
+    }
+
+    // Mirrors the implementation event in the alphalend-contracts repo (alphafi_oracle/sources/oracle.move)
+    // — that repo is the source of truth; keep fields byte-identical to it. conf is the real spot confidence
+    // band (price units), unlike PythPriceUpdationEvent.conf which is a vestigial constant 0 — indexers must
+    // branch on event TYPE, not the shared field name.
+    public struct LazerPriceUpdationEvent has copy, drop {
+        coin_type: TypeName,
+        feed_id: u32,
+        price: Number,
+        ema_price: Number,
+        conf: Number,
+        last_updated: u64,
+    }
+
+    public struct LazerPriceSkippedEvent has copy, drop {
+        coin_type: TypeName,
+        feed_id: u32,
+        reason: u8,
+        price: Number,
+        ema_price: Number,
     }
 
     public struct AdminCap has store, key {
@@ -89,7 +111,15 @@ module alphafi_oracle::oracle {
         self.ema_price
     }
 
-    
+    // Confidence band (price units) of the last update; meaningful only for Lazer-sourced prices
+    // (the Pyth writer stores 0).
+    public fun get_conf(
+        self: &PriceInfo,
+    ) : Number{
+        self.conf
+    }
+
+
     public fun coin_type(
         self: &PriceInfo,
     ) : TypeName{
@@ -103,10 +133,36 @@ module alphafi_oracle::oracle {
         self.last_updated
     }
 
-    
+    // ---- Lazer config getters (stubbed; see alphafi_oracle::oracle for the real bodies) ----
+
+    public fun is_lazer_enabled(_self: &Oracle): bool {
+        abort 0
+    }
+
+    public fun get_lazer_feed_ids_for_coin(_self: &Oracle, _coin_type: TypeName): vector<u32> {
+        abort 0
+    }
+
+    public fun get_coin_type_for_lazer_feed_id(_self: &Oracle, _feed_id: u32): TypeName {
+        abort 0
+    }
+
+    public fun get_all_supported_price_lazer_identifiers(_self: &Oracle): vector<u32> {
+        abort 0
+    }
+
+
     public fun update_price_from_pyth(
         self: &mut Oracle,
         price_info_object: &PriceInfoObject,
+        clock: &Clock,
+    ) {
+       abort 0
+    }
+
+    public fun ingest_lazer_update(
+        self: &mut Oracle,
+        update: LazerUpdate,
         clock: &Clock,
     ) {
        abort 0

@@ -1,0 +1,26 @@
+[package]
+name = "pyth_lazer"
+edition = "2024"
+# ABI stub for Pyth Lazer TYPES (publish with --skip-dependency-verification; consumer links the real pkg).
+# Verification runs in the PTB, so the oracle consumes types only and NEVER calls the verifier fn — meaning
+# future Pyth verifier upgrades need NO oracle republish. The `update_v2` module is new in the v2 upgrade,
+# so published-at must point at a version that CONTAINS it. The `pyth_lazer` named address below remains the
+# original package id; normalized mainnet modules/types fetched through the v2 package still report that id.
+# If these ids are wrong, publish/link fails or the Update type mismatches instead of silently binding a fake type.
+#   MAINNET (verified on-chain 2026-07-06): published-at 0xefbf…ee10 (v2, has update_v2/feed +
+#   parse_and_verify_le_ecdsa_update_v2); original/runtime id 0x7b50…f580.
+#   At publish, confirm generated Move.lock records pyth_lazer's original-published-id as 0x7b50…f580
+#   if the active toolchain emits that field.
+#   TESTNET: Lazer is STILL v1 (no update_v2 module) at 0xf5bd…8c21 — a testnet build will FAIL to link
+#            until Pyth upgrades it; point published-at at that v2 id (or a self-published v2).
+# MAINNET (active):
+published-at = "0xefbfd064480777699fd9c557a5804d72ace7bc82661fdc8d1f1a44ea6d92ee10"
+# TESTNET (uncomment + set a self-published v2 id when republishing on testnet; Pyth's testnet Lazer
+# 0xf5bd…8c21 is still v1 and lacks update_v2):
+# published-at = "0x0000000000000000000000000000000000000000000000000000000000000000"
+
+[dependencies]
+# sui + std only (no Wormhole).
+
+[addresses]
+pyth_lazer = "0x7b502c8a7bcb3915892347f11086745570e759fe9708d03c03accf4c90bbf580"
