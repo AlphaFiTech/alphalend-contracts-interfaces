@@ -66,10 +66,6 @@ module alphafi_oracle::oracle {
         ema_price: Number,
     }
 
-    public struct AdminCap has store, key {
-        id: UID
-    }
-
     public struct AlternatePriceIdentifier has drop,copy,store {}
 
     public struct Oracle has store, key {
