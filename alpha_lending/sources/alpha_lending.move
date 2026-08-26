@@ -13,7 +13,6 @@ module alpha_lending::alpha_lending {
     use alpha_lending::market::{Market, MarketCap, XToken, LiquidityPromise};
     use alpha_lending::position::{Position, PositionCap};
     use alpha_lending::oracle::{Oracle, PriceIdentifier};
-    use alpha_lending::partner::{Partner, PartnerCap};
     use alpha_lending::rewards::{ClaimableReward};
     use bluefin_spot::position::Position as BFPosition;
     use bluefin_spot::pool::Pool as BFPool;
